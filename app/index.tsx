@@ -1,16 +1,11 @@
-import { View, Text, StyleSheet, Dimensions } from "react-native";
 import "@/global.css";
+import { Inter_400Regular, useFonts } from "@expo-google-fonts/inter";
 import { Image } from "expo-image";
+import { Link, useRouter } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect, useState } from "react";
-import {
-  useFonts,
-  Inter_700Bold,
-  Inter_700Bold_Italic,
-  Inter_400Regular,
-} from "@expo-google-fonts/inter";
+import { Dimensions, StyleSheet, Text, View } from "react-native";
 import Button from "./components/Button";
-import { Link, useRouter } from "expo-router";
 import { useAuth } from "./utils/auth";
 
 const CourierImage = require("@/assets/images/courier.jpg");
@@ -71,14 +66,14 @@ export default function Index() {
           onPress={() => router.push("/(auth)/auth?type=register")}
           icon="arrow-forward"
           iconSize={30}
-          className="rounded-full w-20 h-20 flex justify-center items-center bg-[#ff7850]"
+          className="rounded-full w-20 h-20 flex justify-center items-center bg-primary"
         ></Button>
       </View>
       <View className="mt-10 w-full bg-[#1c1c1c] h-[100%] pt-7 rounded-t-3xl">
         <Text className="text-white text-center ">
           Already have an account?
           <Link href={{ pathname: "/(auth)/auth", params: { type: "login" } }}>
-            <Text className="text-[#ff7850] font-semibold ">Login</Text>
+            <Text className="text-primary font-semibold "> Login</Text>
           </Link>
         </Text>
       </View>

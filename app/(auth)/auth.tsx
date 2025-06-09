@@ -1,19 +1,16 @@
+import FontAwesome from "@expo/vector-icons/Ionicons";
+import { useLocalSearchParams, useRouter } from "expo-router";
+import { useEffect, useState } from "react";
 import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
-  StyleSheet,
   Text,
-  TextInput,
   View,
 } from "react-native";
-import FontAwesome from "@expo/vector-icons/Ionicons";
-import Icons from "@expo/vector-icons/MaterialIcons";
-import { useLocalSearchParams, useRouter } from "expo-router";
 import Button from "../components/ButtonUI";
 import Login from "./login";
 import Register from "./register";
-import { useEffect, useState } from "react";
 export default function Auth() {
   const { type } = useLocalSearchParams();
   const [screen, setScreen] = useState<string>();
@@ -56,7 +53,7 @@ export default function Auth() {
                 <View className="w-[49%]">
                   <Button
                     onPress={() => setScreen("login")}
-                    className={`w-full rounded-[3rem] h-full flex  items-center justify-center p-0 m-0x ${screen === "login" && "bg-[#ff7850]"}`}
+                    className={`w-full rounded-[3rem] h-full flex  items-center justify-center p-0 m-0x ${screen === "login" && "bg-primary"}`}
                   >
                     <Text
                       className={`text-center font-medium text-lg  ${screen === "login" ? "text-white" : "text-lack"}`}
@@ -68,7 +65,7 @@ export default function Auth() {
                 <View className="w-[49%]">
                   <Button
                     onPress={() => setScreen("register")}
-                    className={`w-full rounded-[3rem] h-full flex  items-center justify-center p-0 m-0x ${screen === "register" && "bg-[#ff7850] text-white"}`}
+                    className={`w-full rounded-[3rem] h-full flex  items-center justify-center p-0 m-0x ${screen === "register" && "bg-primary text-white"}`}
                   >
                     <Text
                       className={`text-center font-medium text-lg  ${screen === "register" ? "text-white" : "text-lack"}`}

@@ -7,7 +7,7 @@ export default function RootLayout() {
   return (
     <>
       <AuthProvider>
-        <StatusBar style="dark" hidden={false} />
+        <StatusBar style="light" hidden={true} />
         <Stack
           screenOptions={{ animation: "slide_from_right", headerShown: false }}
         >

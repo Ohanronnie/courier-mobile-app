@@ -1,11 +1,10 @@
-import { Text, View, TextInput } from "react-native";
-import Icons from "@expo/vector-icons/MaterialIcons";
-import IonIcons from "@expo/vector-icons/Ionicons";
+import { useRouter } from "expo-router";
+import { useState } from "react";
+import { Text, View } from "react-native";
 import Button from "../components/ButtonUI";
 import Input from "../components/Input";
-import { useState, useEffect } from "react";
 import axiosInstance from "../utils/axios";
-import { useRouter } from "expo-router";
+import { ActivityIndicator } from "react-native";
 type UserDetails = {
   firstName: string;
   lastName: string;
@@ -16,7 +15,9 @@ type UserDetails = {
 export default function Register() {
   const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
   const [error, setError] = useState<UserDetails | null>(null);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
+
   const handleChange = (value: string, name: string) => {
     setUserDetails((val) => ({ ...val, [name]: value }) as any);
   };
@@ -63,6 +64,7 @@ export default function Register() {
     return Object.values(errors).every((error) => !error); // Return true if all fields are valid
   };
   const handleSubmit = async () => {
+    setLoading(true);
     try {
       if (!validate()) {
         return; // Stop submission if validation fails
@@ -85,6 +87,8 @@ export default function Register() {
         setError(errorMessages);
       } else {
       }
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -145,7 +149,7 @@ export default function Register() {
         iconName="lock-closed-outline"
       />
 
-      <Text className="mt-4 text-right font-bold text-md text-[#ff7850]">
+      <Text className="mt-4 text-right font-bold text-md text-primary">
         Forgot Password?
       </Text>
       <View className="w-full mt-4 h-14">
@@ -156,11 +160,17 @@ export default function Register() {
             !userDetails?.lastName ||
             !userDetails?.email ||
             !userDetails?.password ||
-            !userDetails?.phone
+            !userDetails?.phone ||
+            loading
           }
-          className="mt-4 flex flex-row justify-center text-white items-center bg-[#ff7850] h-14 rounded-[3rem]"
+          className="mt-4 flex flex-row justify-center text-white items-center bg-primary h-14 rounded-[3rem]"
         >
-          <Text className="text-white">Register</Text>
+          {" "}
+          {loading ? (
+            <ActivityIndicator size={"large"} color={"white"} />
+          ) : (
+            <Text className="text-white">Register</Text>
+          )}
         </Button>
       </View>
     </View>

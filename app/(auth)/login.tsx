@@ -1,11 +1,11 @@
-import { Text, View, TextInput } from "react-native";
-import { useState } from "react";
 import { useRouter } from "expo-router";
-import Icons from "@expo/vector-icons/Ionicons";
+import * as SecureStore from "expo-secure-store";
+import { useState } from "react";
+import { ActivityIndicator, Text, View } from "react-native";
 import Button from "../components/ButtonUI";
 import Input from "../components/Input";
 import axiosInstance from "../utils/axios";
-import * as SecureStore from "expo-secure-store";
+import Ionicons from "@expo/vector-icons/Ionicons";
 export default function Login() {
   const [userDetails, setUserDetails] = useState<{
     email: string;
@@ -14,12 +14,14 @@ export default function Login() {
     email: "",
     password: "",
   });
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<{ email?: string; password?: string }>({});
   const router = useRouter();
   const handleChange = (value: string, name: string) => {
     setUserDetails((val: any) => ({ ...val, [name]: value }));
   };
   const handleSubmit = async () => {
+    setLoading(true);
     const errors: { email?: string; password?: string } = {};
     if (!userDetails.email || userDetails.email.trim().length === 0) {
       errors.email = "Email is required.";
@@ -36,6 +38,7 @@ export default function Login() {
     if (Object.keys(errors).length === 0) {
       try {
         const response = await axiosInstance.post("/auth/login", userDetails);
+
         if (response.data) {
           // Assuming the response contains user data
           console.log("Login successful:", response.data);
@@ -76,6 +79,8 @@ export default function Login() {
             }
           }
         }
+      } finally {
+        setLoading(false);
       }
     }
   };
@@ -101,15 +106,20 @@ export default function Login() {
         iconName="lock-closed-outline"
       />
 
-      <Text className="mt-4 text-right font-bold text-md text-[#ff7850]">
+      <Text className="mt-4 text-right font-bold text-md text-primary">
         Forgot Password?
       </Text>
       <View className="w-full mt-4 h-14">
         <Button
           onPress={handleSubmit}
-          className="mt-4 flex flex-row justify-center text-white items-center bg-[#ff7850] h-14 rounded-[3rem]"
+          disabled={loading}
+          className="mt-4 flex flex-row justify-center text-white items-center bg-primary h-14 rounded-[3rem]"
         >
-          <Text className="text-white">Login</Text>
+          {loading ? (
+            <ActivityIndicator size={"large"} color={"white"} />
+          ) : (
+            <Text className="text-white">Login</Text>
+          )}{" "}
         </Button>
       </View>
     </View>

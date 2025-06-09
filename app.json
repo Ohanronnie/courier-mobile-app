@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "courier-native",
-    "slug": "courier-native",
+    "name": "Swiftly",
+    "slug": "Swiftly",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "couriernative",
+    "scheme": "swiftly",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
@@ -17,7 +17,7 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.ohanronnie.courierapp"
+      "package": "com.ohanronnie.swiftly"
     },
     "web": {
       "bundler": "metro",
@@ -30,9 +30,9 @@
         "expo-splash-screen",
         {
           "image": "./assets/images/splash-icon.png",
-          "imageWidth": 200,
-          "resizeMode": "contain",
-          "backgroundColor": "#ffffff"
+          "resizeMode": "cover",
+          "imageWidth":"1024",
+          "backgroundColor": "#000000"
         }
       ],
       "expo-secure-store"
