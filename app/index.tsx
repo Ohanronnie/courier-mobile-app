@@ -1,100 +1,88 @@
 import "@/global.css";
 import { Inter_400Regular, useFonts } from "@expo-google-fonts/inter";
-import { Image } from "expo-image";
-import { Link, useRouter } from "expo-router";
-import * as SplashScreen from "expo-splash-screen";
 import { useEffect, useState } from "react";
-import { Dimensions, StyleSheet, Text, View } from "react-native";
-import Button from "./components/Button";
+import { Dimensions, View } from "react-native";
+import * as SplashScreen from "expo-splash-screen";
+import { useRouter } from "expo-router";
+import Animated, {
+  runOnJS,
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from "react-native-reanimated";
 import { useAuth } from "./utils/auth";
 
-const CourierImage = require("@/assets/images/courier.jpg");
-
-const { width, height } = Dimensions.get("window");
+const CourierImage = require("@/assets/images/icon.png");
 
 SplashScreen.preventAutoHideAsync();
 
 export default function Index() {
   const router = useRouter();
-  const [loaded, error] = useFonts({
+  const { width } = Dimensions.get("window");
+  const offset = useSharedValue(0);
+  const [animationComplete, setAnimationComplete] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  const { isAuthenticated, loading: authLoading } = useAuth();
+
+  const [fontsLoaded, fontError] = useFonts({
     Inter_400Regular,
   });
-  const [loading, setLoading] = useState(true);
-  const { isAuthenticated, loading: authLoading } = useAuth();
+
+  // Animated styles for the image
+  const animatedStyles = useAnimatedStyle(() => ({
+    marginLeft: offset.value,
+  }));
+
+  // Handle animation logic
   useEffect(() => {
-    if (loaded || error) {
+    offset.value = withTiming(200, { duration: 1000 }, (isFinished) => {
+      if (isFinished) {
+        runOnJS(setAnimationComplete)(true);
+      }
+    });
+
+    return () => {
+      offset.value = 0; // Reset offset on unmount
+    };
+  }, [offset]);
+
+  // Handle splash screen and font loading
+  useEffect(() => {
+    if (fontsLoaded || fontError) {
       SplashScreen.hideAsync();
     }
-  }, [loaded, error]);
+  }, [fontsLoaded, fontError]);
+
+  // Handle navigation logic
   useEffect(() => {
-    if (loaded && !authLoading) {
+    if (fontsLoaded && !authLoading) {
       setLoading(false);
-      if (isAuthenticated) {
-        router.replace("/dashboard/home");
+
+      if (animationComplete) {
+        if (isAuthenticated) {
+          console.log("User is authenticated, redirecting to dashboard.");
+          router.replace("/dashboard/home");
+        } else {
+          console.log("User is not authenticated, redirecting to auth page.");
+          router.replace("/(auth)/default");
+        }
       }
     }
-  }, [loaded, authLoading, isAuthenticated, router]);
-  if (!loaded && !error) {
-    console.log("Error loading fonts", error);
+  }, [fontsLoaded, authLoading, isAuthenticated, animationComplete, router]);
+
+  // Handle font loading errors
+  if (!fontsLoaded && !fontError) {
+    console.log("Error loading fonts:", fontError);
     return null;
   }
+
   return (
-    <View className="bg-[#0a0a0a] h-full">
-      <View className="relative flex">
-        <Image
-          source={CourierImage}
-          className="rounded-bl-xl inset-0 bg-black/50"
-          style={styles.image}
-        />
-        <View className="absolute top-0 left-0 right-0 bottom-0 inset-0 bg-black/50" />
-        <View className="left-5 text-gray-200 absolute top-36 ">
-          <Text style={styles.text} className="text-6xl">
-            Your Logistics{" "}
-          </Text>
-          <Text style={styles.text}>Partner For Seamless</Text>
-          <Text style={styles.text}>Delivery</Text>
-        </View>
-      </View>
-      <View className="mx-4 mt-3">
-        <Text className="text-xl text-center font-normal text-white mt-10">
-          Our Logistics Services provide end-to-end solutions for all shipping
-          needs.
-        </Text>
-      </View>
-      <View className="flex flex-row justify-center mx-4 mt-10">
-        <Button
-          onPress={() => router.push("/(auth)/auth?type=register")}
-          icon="arrow-forward"
-          iconSize={30}
-          className="rounded-full w-20 h-20 flex justify-center items-center bg-primary"
-        ></Button>
-      </View>
-      <View className="mt-10 w-full bg-[#1c1c1c] h-[100%] pt-7 rounded-t-3xl">
-        <Text className="text-white text-center ">
-          Already have an account?
-          <Link href={{ pathname: "/(auth)/auth", params: { type: "login" } }}>
-            <Text className="text-primary font-semibold "> Login</Text>
-          </Link>
-        </Text>
-      </View>
+    <View className="w-full h-full flex items--center justify-center">
+      <Animated.Image
+        source={CourierImage}
+        style={[{ width: 160, height: 160 }, animatedStyles]}
+      />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  image: {
-    width: width,
-    height: height * 0.67,
-    resizeMode: "cover",
-    borderBottomLeftRadius: 30,
-    borderBottomRightRadius: 30,
-  },
-  text: {
-    fontFamily: "Inter_400Regular",
-    fontSize: 35,
-    color: "white",
-    textShadowColor: "#000",
-    textShadowOffset: { width: 0, height: 2 },
-    textShadowRadius: 4,
-  },
-});

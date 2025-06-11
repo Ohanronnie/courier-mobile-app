@@ -7,16 +7,17 @@ import { ComponentProps, ReactNode } from "react";
 type InputProps = {
   className?: string;
   placeholder?: string;
-  onChangeText: (text: string, value: string) => void;
+  onChangeText?: (text: string, value?: string) => void;
   secureTextEntry?: boolean;
   iconName?: ComponentProps<typeof IonIcons>["name"];
-  name: string;
+  name?: string;
   keyboardType?: ComponentProps<typeof TextInput>["keyboardType"];
   error?: string;
   value?: string | undefined;
   extendComponent?: ReactNode;
   viewClassName?: string;
   label?: string;
+  multiline?: boolean;
 };
 export default function Input({
   className,
@@ -31,12 +32,13 @@ export default function Input({
   viewClassName,
   extendComponent,
   label,
+  multiline,
 }: InputProps) {
   return (
     <View className={`${className} mt-6`}>
       {label && <Text className="mb-2">{label}</Text>}
       <View
-        className={`p-1.5 bg-white  ${!viewClassName ? "border-[0.5px]" : viewClassName} rounded-xl flex flex-row items-center`}
+        className={`p-1.5 border-gray-300 bg-white  ${!viewClassName ? "border-[1px]" : viewClassName} rounded-xl flex flex-row items-center`}
       >
         <IonIcons size={24} name={iconName} />
         <TextInput
@@ -44,8 +46,12 @@ export default function Input({
           placeholder={placeholder}
           secureTextEntry={secureTextEntry}
           keyboardType={keyboardType}
+          multiline={multiline}
+          textAlignVertical={multiline ? "top" : "center"}
           value={value}
-          onChangeText={(value: string) => onChangeText(value, name)}
+          onChangeText={(value: string) =>
+            onChangeText && onChangeText(value, name)
+          }
         />
       </View>
       {error && (

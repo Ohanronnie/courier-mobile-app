@@ -11,17 +11,19 @@ const StepsIndicator: React.FC<StepsIndicatorProps> = ({
   currentStep,
 }) => {
   return (
-    <View className="flex flex-row items-center justify-between w-full">
+    <View className="relative flex flex-row items-center justify-between w-full">
       {steps.map((step, index) => (
         <View key={index} className="flex items-center flex-1">
           {/* Step Circle */}
           <View
-            className={`w-6 h-6 rounded-full flex items-center justify-center ${
+            className={`w-6 h-6 rounded-full elevation flex items-center justify-center ${
               index <= currentStep ? "bg-primary" : "bg-gray-300"
             }`}
           >
             <Text
-              className={`${index <= currentStep ? "text-white" : "text-gray-500"} font-bold`}
+              className={`${
+                index <= currentStep ? "text-white" : "text-gray-500"
+              } font-bold`}
             >
               {index + 1}
             </Text>
@@ -29,9 +31,11 @@ const StepsIndicator: React.FC<StepsIndicatorProps> = ({
 
           {/* Step Label */}
           <Text
-            className={`text-center text-sm mt-2 ${
+            className={`text-center elevation text-sm mt-2 ${
               index <= currentStep ? "text-primary" : "text-gray-500"
             }`}
+            numberOfLines={1} // Prevents text from wrapping
+            ellipsizeMode="tail" // Adds ellipsis if text is too long
           >
             {step}
           </Text>
@@ -39,15 +43,13 @@ const StepsIndicator: React.FC<StepsIndicatorProps> = ({
           {/* Connector Line */}
           {index < steps.length - 1 && (
             <View
-              className={`h-1 w-full ${
+              className={`absolute z-0 top-3 h-1 ${
                 index < currentStep ? "bg-primary" : "bg-gray-300"
               }`}
               style={{
-                position: "absolute",
-                top: 10,
-                left: "50%",
-                right: "-50%",
-                zIndex: -1,
+                width: "100%", // Ensures the line spans the full width
+                left: "65%", // Start from the middle of the current step
+                transform: [{ translateY: 10 }], // Adjust to align with the next step
               }}
             />
           )}
