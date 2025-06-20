@@ -23,6 +23,7 @@ import { PhoneInputScreen } from "../components/PhoneInput";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { use, useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Confirm from "../components/dashboard/packages/Confirm";
 export default function Packages() {
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState(0);
@@ -156,7 +157,8 @@ export default function Packages() {
                   "Delivery Address",
                   "Parcel Create",
                   "Packaging",
-                  "Shipment",
+                  "Confirm",
+                  "Courier"
                 ]}
                 currentStep={currentStep}
               />
@@ -194,7 +196,7 @@ export default function Packages() {
                 setLocalPackaging={setLocalPackaging}
               />
             )}
-            {currentStep === 4 && <Shipment />}
+            {currentStep === 4 && <Confirm />}
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
