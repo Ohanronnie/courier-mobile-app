@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Swiftly",
-    "slug": "Swiftly",
+    "slug": "courier-native",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -31,7 +31,7 @@
         {
           "image": "./assets/images/splash-icon.png",
           "resizeMode": "cover",
-          "imageWidth":"1024",
+          "imageWidth": "1024",
           "backgroundColor": "#000000"
         }
       ],
@@ -45,6 +45,7 @@
       "eas": {
         "projectId": "bc429bd2-0588-489f-95e7-9785be92d5c0"
       }
-    }
+    },
+    "owner": "ohanronnie"
   }
 }
