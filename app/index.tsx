@@ -1,16 +1,16 @@
 import "@/global.css";
 import { Inter_400Regular, useFonts } from "@expo-google-fonts/inter";
+import { useRouter } from "expo-router";
+import * as SplashScreen from "expo-splash-screen";
 import { useEffect, useState } from "react";
 import { Dimensions, View } from "react-native";
-import * as SplashScreen from "expo-splash-screen";
-import { useRouter } from "expo-router";
 import Animated, {
   runOnJS,
   useAnimatedStyle,
   useSharedValue,
   withTiming,
 } from "react-native-reanimated";
-import { useAuth } from "./utils/auth";
+import { useAuth } from "./lib/auth";
 
 const CourierImage = require("@/assets/images/icon.png");
 

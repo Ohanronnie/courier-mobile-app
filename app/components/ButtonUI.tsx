@@ -21,7 +21,6 @@ export default function Button({
       onPress={onPress}
       onPressIn={() => setIsPressed(true)}
       onPressOut={() => setIsPressed(false)}
-      
       disabled={disabled}
       className={className}
       style={[

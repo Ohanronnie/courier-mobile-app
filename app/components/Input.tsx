@@ -7,7 +7,7 @@ import { ComponentProps, ReactNode } from "react";
 type InputProps = {
   className?: string;
   placeholder?: string;
-  onChangeText?: (text: string, value?: string) => void;
+  onChangeText?: (text: string, name: string, ...args: any[]) => void;
   secureTextEntry?: boolean;
   iconName?: ComponentProps<typeof IonIcons>["name"];
   name?: string;
@@ -50,7 +50,7 @@ export default function Input({
           textAlignVertical={multiline ? "top" : "center"}
           value={value}
           onChangeText={(value: string) =>
-            onChangeText && onChangeText(value, name)
+            onChangeText && name && onChangeText(value, name)
           }
         />
       </View>

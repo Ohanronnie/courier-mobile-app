@@ -4,8 +4,7 @@ import { useState } from "react";
 import { ActivityIndicator, Text, View } from "react-native";
 import Button from "../components/ButtonUI";
 import Input from "../components/Input";
-import axiosInstance from "../utils/axios";
-import Ionicons from "@expo/vector-icons/Ionicons";
+import axiosInstance from "../lib/axios";
 export default function Login() {
   const [userDetails, setUserDetails] = useState<{
     email: string;

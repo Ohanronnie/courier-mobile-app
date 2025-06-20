@@ -5,7 +5,7 @@ export default function DashboardLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: "#ff7850",
+        tabBarActiveTintColor: "#121212",
         tabBarInactiveTintColor: "#888",
         headerShown: false,
         tabBarItemStyle: {

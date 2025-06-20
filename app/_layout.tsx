@@ -1,13 +1,14 @@
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { AuthProvider } from "./utils/auth";
-import { KeyboardAvoidingView, SafeAreaView, ScrollView } from "react-native";
+import { AuthProvider } from "./lib/auth";
+import { View } from "react-native";
 
 export default function RootLayout() {
   return (
     <>
       <AuthProvider>
-        <StatusBar style="light" hidden={true} />
+        <StatusBar style="dark" hidden={false} />
+
         <Stack
           screenOptions={{ animation: "slide_from_right", headerShown: false }}
         >

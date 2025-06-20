@@ -43,7 +43,7 @@ const StepsIndicator: React.FC<StepsIndicatorProps> = ({
           {/* Connector Line */}
           {index < steps.length - 1 && (
             <View
-              className={`absolute z-0 top-3 h-1 ${
+              className={`absolute z-0 top-0 h-1 ${
                 index < currentStep ? "bg-primary" : "bg-gray-300"
               }`}
               style={{

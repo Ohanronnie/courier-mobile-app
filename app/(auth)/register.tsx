@@ -1,10 +1,9 @@
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import { Text, View } from "react-native";
+import { ActivityIndicator, Text, View } from "react-native";
 import Button from "../components/ButtonUI";
 import Input from "../components/Input";
-import axiosInstance from "../utils/axios";
-import { ActivityIndicator } from "react-native";
+import axiosInstance from "../lib/axios";
 type UserDetails = {
   firstName: string;
   lastName: string;
