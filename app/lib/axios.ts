@@ -1,5 +1,5 @@
 import axios from "axios";
-const API_URL = process.env.EXPO_PUBLIC_API_URL || "https://courier-backend-xrgx.onrender.com/api";
+const API_URL = "https://courier-backend-xrgx.onrender.com/api";
 console.log(API_URL, "API_URL from env");
 const axiosInstance = axios.create({
   baseURL: API_URL,
