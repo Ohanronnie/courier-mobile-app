@@ -42,12 +42,11 @@ export default function Input({
       >
         <IonIcons size={24} name={iconName} />
         <TextInput
-          className="mx-2 h-full w-full text-black"
+          className="mx-2 h-full w-full text-black placeholder:text-black"
           placeholder={placeholder}
           secureTextEntry={secureTextEntry}
           keyboardType={keyboardType}
           multiline={multiline}
-          
           textAlignVertical={multiline ? "top" : "center"}
           value={value}
           onChangeText={(value: string) =>
