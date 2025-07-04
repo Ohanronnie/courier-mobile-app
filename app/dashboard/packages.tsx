@@ -37,7 +37,7 @@ export default function Packages() {
   );
   const { step } = useLocalSearchParams();
   const moveToNextStep = () => {
-    if (currentStep < 4) {
+    if (currentStep < 5) {
       router.replace(`/dashboard/packages?step=${currentStep + 1}`);
     } else {
       console.log("All steps completed");
@@ -156,7 +156,7 @@ export default function Packages() {
                   "Parcel Create",
                   "Packaging",
                   "Confirm",
-                  "Courier"
+                  "Courier",
                 ]}
                 currentStep={currentStep}
               />
@@ -194,7 +194,7 @@ export default function Packages() {
                 setLocalPackaging={setLocalPackaging}
               />
             )}
-            {currentStep === 4 && <Confirm />}
+            {currentStep === 4 && <Confirm moveToTheNextStep={moveToNextStep}/>}
           </View>
         </ScrollView>
       </KeyboardAvoidingView>

@@ -15,7 +15,7 @@ export type PackagingType = {
 export default function Packaging({
   moveToNextStep,
   setLocalPackaging,
-  localPackaging
+  localPackaging,
 }: {
   moveToNextStep: () => void;
   setLocalPackaging: (val: PackagingType) => void;
@@ -38,16 +38,15 @@ export default function Packaging({
     console.log(_errors);
     setErrors(_errors as PackagingType);
     if (!_errors) {
-      setLocalPackaging(packaging as PackagingType)
+      setLocalPackaging(packaging as PackagingType);
       moveToNextStep();
     }
-    
-  }; 
+  };
   useEffect(() => {
-    if(localPackaging){
-      setPackaging(localPackaging)
+    if (localPackaging) {
+      setPackaging(localPackaging);
     }
-  },[localPackaging])
+  }, [localPackaging]);
   return (
     <View>
       <View>

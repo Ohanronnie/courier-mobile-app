@@ -1,24 +1,40 @@
+import { HorizontalLine } from "@/app/dashboard/home";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useRouter } from "expo-router";
+import { useEffect, useState } from "react";
 import { Text, View } from "react-native";
 import Button from "../../ButtonUI";
-import Ionicons from "@expo/vector-icons/Ionicons";
-import { useRouter } from "expo-router";
-import { useState, useEffect } from "react";
 import { AddressType } from "./Address";
-import { ParcelType } from "./Parcel";
 import { PackagingType } from "./Packaging";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { HorizontalLine } from "@/app/dashboard/home";
+import { ParcelType } from "./Parcel";
+import Rates, { RateProps } from "./Rates";
 
-export default function Confirm() {
+function ConfirmComponent({
+  setConfirmed,
+  setRates,
+}: {
+  setConfirmed: (val: boolean) => void;
+  setRates: (val: RateProps) => void;
+}) {
   const router = useRouter();
   const [senderAddress, setSenderAddress] = useState<AddressType | null>(null);
-    const [receiverAddress, setReceiverAddress] = useState<AddressType | null>(
-      null,
-    );
-    const [localParcels, setLocalParcels] = useState<ParcelType[]>([]);
-    const [localPackaging, setLocalPackaging] = useState<PackagingType | null>(
-      null);
-      
+  const [receiverAddress, setReceiverAddress] = useState<AddressType | null>(
+    null
+  );
+  const [localParcels, setLocalParcels] = useState<ParcelType[]>([]);
+  const [localPackaging, setLocalPackaging] = useState<PackagingType | null>(
+    null
+  );
+  const handleSubmit = () => {
+    setConfirmed(true);
+    setRates({
+      pickupAddress: senderAddress,
+      deliveryAddress: receiverAddress,
+      parcel: localParcels,
+      packaging: localPackaging,
+    } as unknown as RateProps);
+  };
   useEffect(() => {
     if (!senderAddress) {
       AsyncStorage.getItem("senderAddress").then((data) => {
@@ -72,7 +88,10 @@ export default function Confirm() {
             {senderAddress?.addressLine1}, {senderAddress?.state},{" "}
             {senderAddress?.city}, {senderAddress?.country}
           </Text>
-          <Text>+{senderAddress?.callingCode}{senderAddress?.phone}</Text>
+          <Text>
+            +{senderAddress?.callingCode}
+            {senderAddress?.phone}
+          </Text>
           <Text>{senderAddress?.postalCode}</Text>
         </View>
         <View className="flex flex-row-reverse w-full">
@@ -102,7 +121,10 @@ export default function Confirm() {
             {receiverAddress?.addressLine1}, {receiverAddress?.state},{" "}
             {receiverAddress?.city}, {receiverAddress?.country}
           </Text>
-          <Text>+{receiverAddress?.callingCode}{receiverAddress?.phone}</Text>
+          <Text>
+            +{receiverAddress?.callingCode}
+            {receiverAddress?.phone}
+          </Text>
           <Text>{receiverAddress?.postalCode}</Text>
         </View>
         <View className="flex flex-row-reverse w-full">
@@ -123,8 +145,8 @@ export default function Confirm() {
       <View className="mt-4 bg-white p-4 rounded-lg shadow-md">
         <Text className="text-lg font-semibold">Parcel</Text>
         {localParcels.map((current, index, array) => (
-          <>
-            <View key={index} className="my-2">
+          <View key={index}>
+            <View className="my-2">
               <Text>Name - {current?.name}</Text>
               <Text>
                 Weight - {current.weight} kg * Quantity - {current.quantity} 23
@@ -136,8 +158,8 @@ export default function Confirm() {
               </Text>
               <Text>Product Type - {current.type}</Text>
             </View>
-            {index != array.length -1 && <HorizontalLine />}
-          </>
+            {index != array.length - 1 && <HorizontalLine />}
+          </View>
         ))}
 
         <View className="flex flex-row-reverse w-full">
@@ -183,11 +205,28 @@ export default function Confirm() {
         </View>
       </View>
       <Button
-        onPress={() => null}
+        onPress={handleSubmit}
         className="h-16  mt-6 rounded-full p-0 bg-primary flex items-center justify-center"
       >
         <Text className="text-white p-0">Continue</Text>
       </Button>
     </View>
+  );
+}
+export default function Confirm({
+  moveToTheNextStep,
+}: {
+  moveToTheNextStep: () => void;
+}) {
+  const [confirmed, setConfirmed] = useState(false);
+  const [rates, setRates] = useState<RateProps | null>(null);
+  const handleSubmit = () => {
+    setConfirmed(true);
+  };
+
+  return confirmed && rates ? (
+    <Rates {...(rates as RateProps)} />
+  ) : (
+    <ConfirmComponent setRates={setRates} setConfirmed={setConfirmed} />
   );
 }
