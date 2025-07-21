@@ -42,7 +42,13 @@ export const addressValidationSchema = Joi.object({
     "string.min": "State must be at least 2 characters.",
     "string.max": "State must not exceed 50 characters.",
   }),
-  country: Joi.string().length(2).uppercase().required().messages({
+  country: Joi.string().required().messages({
+    "string.empty": "Country is required.",
+    "string.length": "Country must be a 2-character code.",
+    "string.uppercase": "Country code must be uppercase.",
+  }),
+
+  countryName: Joi.string().required().messages({
     "string.empty": "Country is required.",
     "string.length": "Country must be a 2-character code.",
     "string.uppercase": "Country code must be uppercase.",

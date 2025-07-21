@@ -1,5 +1,6 @@
 import axios from "axios";
-const API_URL = "https://courier-backend-xrgx.onrender.com/api";
+import * as SecureStore from "expo-secure-store"
+const API_URL = process.env.EXPO_PUBLIC_API_URL;
 console.log(API_URL, "API_URL from env");
 const axiosInstance = axios.create({
   baseURL: API_URL,
@@ -44,4 +45,9 @@ axiosInstance.interceptors.response.use(
     return Promise.reject(error);
   },
 );
+axiosInstance.interceptors.request.use((request) => {
+  const token = SecureStore.getItem("JwtToken");
+  request.headers.Authorization = `Bearer ${token}`
+  return request
+})
 export default axiosInstance;

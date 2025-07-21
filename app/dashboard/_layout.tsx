@@ -1,12 +1,17 @@
 import Ionicons from "@expo/vector-icons/MaterialCommunityIcons";
 import { Tabs } from "expo-router";
+import { useColorScheme } from "react-native";
 
 export default function DashboardLayout() {
+  const colorScheme = useColorScheme();
+
+  const isDarkMode = colorScheme === "dark";
+
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: "#121212",
-        tabBarInactiveTintColor: "#888",
+        tabBarActiveTintColor: isDarkMode ? "#ffffff" : "#121212",
+        tabBarInactiveTintColor: isDarkMode ? "#888888" : "#888",
         headerShown: false,
         tabBarItemStyle: {
           justifyContent: "center",
@@ -15,6 +20,7 @@ export default function DashboardLayout() {
           marginTop: 10,
         },
         tabBarStyle: {
+          backgroundColor: isDarkMode ? "#161b21" : "#ffffff",
           borderTopWidth: 0,
           shadowColor: "transparent",
           height: 80,
@@ -64,7 +70,6 @@ export default function DashboardLayout() {
           ),
         }}
       />
-
       <Tabs.Screen
         name="profile"
         options={{

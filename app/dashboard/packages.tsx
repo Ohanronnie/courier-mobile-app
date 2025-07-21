@@ -1,201 +1,159 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { useRouter } from "expo-router";
+import React, { ReactNode, useEffect, useState } from "react";
 import {
-  BackHandler,
   KeyboardAvoidingView,
+  Modal,
   Platform,
-  Pressable,
+  ScrollView,
   Text,
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import StepsIndicator from "../components/StepsIndicator";
-import Input from "../components/Input";
-import { HorizontalLine } from "./home";
 import Button from "../components/ButtonUI";
-import Address, { AddressType } from "../components/dashboard/packages/Address";
-import Parcel, { ParcelType } from "../components/dashboard/packages/Parcel";
-import { ScrollView } from "react-native";
-import Packaging, {
-  PackagingType,
-} from "../components/dashboard/packages/Packaging";
-import Shipment from "../components/dashboard/packages/Shipment";
-import { PhoneInputScreen } from "../components/PhoneInput";
-import { useLocalSearchParams, useRouter } from "expo-router";
-import { use, useEffect, useState } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import Confirm from "../components/dashboard/packages/Confirm";
+import Address from "../components/dashboard/packages/Address";
+import StepsIndicator from "../components/StepsIndicator";
+import { HorizontalLine } from "./home";
+import axiosInstance from "../lib/axios";
+function CreateModal({
+  visible,
+  onClose,
+  component,
+  header,
+}: {
+  component: ReactNode;
+  visible: boolean;
+  onClose: () => void;
+  header: string;
+}) {
+  if (!visible) return null;
+  return (
+    <ScrollView
+      className="flex-1 bg-surface-light dark:bg-surface-dark"
+      showsVerticalScrollIndicator={false}
+    >
+      <Modal
+        animationType="slide"
+        transparent={false}
+        visible={visible}
+        onRequestClose={onClose}
+        className=""
+      >
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          className="bg-surface-light dark:bg-surface-dark px-4 pt-8 flex-1  shadow-lg"
+        >
+          <View className="w-full px-2 flex bg-surface-light dark:bg-surface-dark flex-row justify-between items-center  shadow-md">
+            <Text className="text-lg text-text-light dark:text-text-dark font-semibold mb-4">
+              {header}
+            </Text>
+            <Button
+              onPress={onClose}
+              className="bg-surface-light dark:bg-surface-dark border border-input-light dark:border-input-dark text-white p-1 rounded-full flex flex-row justify-center items-center mb-4"
+            >
+              <Ionicons
+                name="close-outline"
+                size={24}
+                className="text-text-light dark:text-text-dark"
+              ></Ionicons>
+            </Button>
+          </View>
+          <HorizontalLine />
+          <ScrollView className="">{component}</ScrollView>
+        </ScrollView>
+      </Modal>
+    </ScrollView>
+  );
+}
 export default function Packages() {
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState(0);
-  const [senderAddress, setSenderAddress] = useState<AddressType | null>(null);
-  const [receiverAddress, setReceiverAddress] = useState<AddressType | null>(
-    null,
-  );
-  const [localParcels, setLocalParcels] = useState<ParcelType[]>([]);
-  const [localPackaging, setLocalPackaging] = useState<PackagingType | null>(
-    null,
-  );
-  const { step } = useLocalSearchParams();
-  const moveToNextStep = () => {
-    if (currentStep < 5) {
-      router.replace(`/dashboard/packages?step=${currentStep + 1}`);
-    } else {
-      console.log("All steps completed");
-    }
-  };
+  const [pickupModal, setPickupModal] = useState(false);
   useEffect(() => {
-    if (step) {
-      const stepNumber = parseInt(step as string, 10);
-      if (!isNaN(stepNumber) && stepNumber >= 0 && stepNumber <= 4) {
-        setCurrentStep(stepNumber);
-        AsyncStorage.setItem("currentStep", currentStep.toString() || "5");
-      }
-    }
-  }, [step]);
-  useEffect(() => {
-    const onBackPress = () => {
-      if (currentStep > 0) {
-        router.push(`/dashboard/packages?step=${currentStep - 1}`);
-        return true; // Prevent default back action
-      }
-
-      return false;
-      // Allow default back action
-    };
-    const backHandler = BackHandler.addEventListener(
-      "hardwareBackPress",
-      onBackPress,
-    );
-    return () => backHandler.remove();
-  }, [
-    currentStep,
-    router.replace,
-    BackHandler,
-    step,
-    setCurrentStep,
-    useLocalSearchParams,
-  ]);
-  useEffect(() => {
-    AsyncStorage.getItem("currentStep").then((data) => {
-      if (data) {
-        console.log("Current Step from AsyncStorage:", data);
-        const stepNumber = parseInt(data, 10);
-        if (!isNaN(stepNumber) && stepNumber >= 0 && stepNumber <= 4) {
-          setCurrentStep(stepNumber);
-        }
-      } else {
-        // change this to 0 before pushing
-        setCurrentStep(0); // Default to step 0 if no data found
-      }
-    });
-  }, []);
-  useEffect(() => {
-    if (!senderAddress) {
-      AsyncStorage.getItem("senderAddress").then((data) => {
-        if (data) {
-          setSenderAddress(JSON.parse(data));
-        }
-      });
-    } else {
-      AsyncStorage.setItem("senderAddress", JSON.stringify(senderAddress));
-    }
-    if (!receiverAddress) {
-      AsyncStorage.getItem("receiverAddress").then((data) => {
-        if (data) {
-          setReceiverAddress(JSON.parse(data));
-        }
-      });
-    } else {
-      AsyncStorage.setItem("receiverAddress", JSON.stringify(receiverAddress));
-    }
-    if (localParcels.length === 0) {
-      AsyncStorage.getItem("localParcels").then((value) => {
-        if (value) {
-          setLocalParcels(JSON.parse(value));
-        }
-      });
-    } else {
-      AsyncStorage.setItem("localParcels", JSON.stringify(localParcels));
-    }
-    if (!localPackaging) {
-      AsyncStorage.getItem("localPackaging").then((value) => {
-        if (value) {
-          setLocalPackaging(JSON.parse(value));
-        }
-      });
-    } else {
-      AsyncStorage.setItem("localPackaging", JSON.stringify(localPackaging));
-    }
-  }, [senderAddress, receiverAddress, localParcels, localPackaging]);
-  const handleBackPress = () => {
-    router.back();
-  };
-
+    
+  })
   return (
-    <SafeAreaView>
+    <SafeAreaView className="flex-1 bg-background-light dark:bg-background-dark">
       <KeyboardAvoidingView
+        className="flex-1"
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <View className="mt-4 mx-4">
-            <View className="flex flex-row items-center justify-between">
-              <Pressable
-                onPress={handleBackPress}
-                className="bg-white flex  h-10 w-10  rounded-full items-center justify-center "
-              >
-                <Ionicons name="chevron-back" size={24} />
-              </Pressable>
-              <Text className="text-xl font-medium">Send Package</Text>
-              <Ionicons name="chevron-back" className="opacity-0" size={24} />
-            </View>
-            <View className="mt-4">
-              <StepsIndicator
-                steps={[
-                  "Pickup Address",
-                  "Delivery Address",
-                  "Parcel Create",
-                  "Packaging",
-                  "Confirm",
-                  "Courier",
-                ]}
-                currentStep={currentStep}
-              />
-            </View>
-            <View className="mt-4">
-              <HorizontalLine />
-            </View>
-            {currentStep === 0 && (
-              <Address
-                type="sender"
-                moveToNextStep={moveToNextStep}
-                senderAddress={senderAddress}
-                setSenderAddress={setSenderAddress}
-              />
-            )}
-            {currentStep === 1 && (
-              <Address
-                type="receiver"
-                moveToNextStep={moveToNextStep}
-                receiverAddress={receiverAddress}
-                setReceiverAddress={setReceiverAddress}
-              />
-            )}
-            {currentStep === 2 && (
-              <Parcel
-                moveToNextStep={moveToNextStep}
-                setLocalParcels={setLocalParcels}
-                localParcels={localParcels}
-              />
-            )}
-            {currentStep === 3 && (
-              <Packaging
-                moveToNextStep={moveToNextStep}
-                localPackaging={localPackaging as PackagingType}
-                setLocalPackaging={setLocalPackaging}
-              />
-            )}
-            {currentStep === 4 && <Confirm moveToTheNextStep={moveToNextStep}/>}
+        <ScrollView className="flex-1">
+          <Text className="text-xl text-center mt-2 text-text-light dark:text-text-dark">
+            Ship your package
+          </Text>
+          <View className="p-4">
+            <StepsIndicator
+              steps={[
+                "Pickup Address",
+                "Delivery Address",
+                "Parcel Create",
+                "Packaging",
+                "Confirm",
+                "Courier",
+              ]}
+              currentStep={currentStep}
+            />
+            <HorizontalLine />
           </View>
+          <View className="mt-4 mx-4 bg-surface-light dark:bg-surface-dark py-8 px-4 flex flex-row justify-between items-center rounded-lg shadow-md">
+            <View>
+              <Text className="text-lg font-semibold mb-2 text-text-light dark:text-text-dark">
+                Pickup Address
+              </Text>
+              <Text className="text-subtext-light dark:text-subtext-dark">
+                Add a pickup address.
+              </Text>
+            </View>
+
+            <View className="">
+              <Button
+                onPress={() => setPickupModal(true)}
+                className="bg-surface-light dark:bg-surface-dark border border-input-light dark:border-input-dark text-white w-16 h-8 rounded-xl flex flex-row justify-center items-center"
+              >
+                <Ionicons
+                  name="create-outline"
+                  size={12}
+                  className="text-subtext-light dark:text-subtext-dark mr-1"
+                ></Ionicons>
+                <Text className="text-subtext-light dark:text-subtext-dark">
+                  Edit
+                </Text>
+              </Button>
+            </View>
+          </View>
+          <View className="mt-4 mx-4 bg-surface-light dark:bg-surface-dark py-8 px-4 flex flex-row justify-between items-center rounded-lg shadow-md">
+            <View>
+              <Text className="text-lg font-semibold mb-2 text-text-light dark:text-text-dark">
+                Pickup Address
+              </Text>
+              <Text className="text-subtext-light dark:text-subtext-dark">
+                Add a pickup address.
+              </Text>
+            </View>
+
+            <View className="">
+              <Button
+                onPress={() => setPickupModal(true)}
+                className="bg-surface-light dark:bg-surface-dark border border-input-light dark:border-input-dark text-white w-16 h-8 rounded-xl flex flex-row justify-center items-center"
+              >
+                <Ionicons
+                  name="create-outline"
+                  size={12}
+                  className="text-subtext-light dark:text-subtext-dark mr-1"
+                ></Ionicons>
+                <Text className="text-subtext-light dark:text-subtext-dark">
+                  Edit
+                </Text>
+              </Button>
+            </View>
+          </View>
+          <CreateModal
+            visible={pickupModal}
+            onClose={() => setPickupModal(false)}
+            component={<Address />}
+            header="Pickup Address"
+          />
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>

@@ -1,0 +1,362 @@
+[
+  {
+    "amount": 105833.75,
+    "cargo_type": "",
+    "carrier_logo": "https://terminal-static-file.s3.us-east-1.amazonaws.com/images/FEZ+Delivery.svg",
+    "carrier_name": "Fez Delivery",
+    "carrier_rate_description": "Standard",
+    "carrier_reference": "CA-TNVVUT1XVB1ULV5Q",
+    "carrier_slug": "fez-delivery",
+    "currency": "NGN",
+    "domain": "",
+    "default_amount": 105833.75,
+    "default_currency": "NGN",
+    "delivery_address": "AD-N1FABTCG6OAIFHFV",
+    "delivery_date": "2025-07-16T18:26:57.778Z",
+    "delivery_eta": 17280,
+    "delivery_time": "Within 2 weeks",
+    "dropoff_available": false,
+    "dropoff_only": false,
+    "dropoff_required": false,
+    "wordpress_used": false,
+    "insurance_coverage": 0,
+    "includes_duties": false,
+    "insurance_fee": 0,
+    "includes_insurance": false,
+    "metadata": {
+      "default_parcel": {
+        "packaging_dimension": {
+          "length": 100,
+          "height": 100,
+          "width": 50
+        },
+        "parcel_total_weight": 50,
+        "parcel_value": 60000,
+        "packages": [
+          {
+            "weight": 100,
+            "dimensions": {
+              "length": 100,
+              "width": 50,
+              "height": 100
+            }
+          }
+        ]
+      },
+      "address_payload": {
+        "pickup_address": {
+          "city": "Ikeja",
+          "state": "Lagos",
+          "country": "NG",
+          "zip": ""
+        },
+        "delivery_address": {
+          "city": "Wuse",
+          "state": "Abuja",
+          "country": "NG",
+          "zip": ""
+        }
+      },
+      "score": 1,
+      "avgRating": 0,
+      "insurance_fee": 0,
+      "insurance_currency": "NGN",
+      "insurance_default_fee": 0,
+      "insurance_default_currency": "NGN",
+      "cod_processing_fee": 0
+    },
+    "parcel": "PC-FM118LK0297DQ9B0",
+    "parcels": [],
+    "pickup_address": "AD-NOW5WMI7NJJ3WJL2",
+    "pickup_date": "2025-07-05T09:26:57.778Z",
+    "pickup_eta": 900,
+    "pickup_time": "Within 24 Hours",
+    "rate_id": "RT-Z5HCG29FHH6N5COV",
+    "source": "api",
+    "type": "standard",
+    "used": false,
+    "user": "USER-VBUNINZ77RHSVUJ2",
+    "_id": "68681cf1ed6770b2c89cf7ca",
+    "__v": 0,
+    "created_at": "2025-07-04T18:26:57.930Z",
+    "updated_at": "2025-07-04T18:26:57.930Z",
+    "id": "68681cf1ed6770b2c89cf7ca"
+  },
+  {
+    "amount": 130529.94,
+    "cargo_type": "",
+    "carrier_logo": "https://terminal-static-file.s3.us-east-1.amazonaws.com/images/Redstar.svg",
+    "carrier_name": "Redstar Express",
+    "carrier_rate_description": "Normal Delivery",
+    "carrier_reference": "CA-EPTEBPNPW7HWULW0",
+    "carrier_slug": "redstar",
+    "currency": "NGN",
+    "domain": "",
+    "default_amount": 130529.94,
+    "default_currency": "NGN",
+    "delivery_address": "AD-N1FABTCG6OAIFHFV",
+    "delivery_date": "2025-07-09T18:26:57.778Z",
+    "delivery_eta": 7200,
+    "delivery_time": "Within 5 days",
+    "dropoff_available": false,
+    "dropoff_only": false,
+    "dropoff_required": false,
+    "wordpress_used": false,
+    "insurance_coverage": 0,
+    "includes_duties": false,
+    "insurance_fee": 0,
+    "includes_insurance": false,
+    "metadata": {
+      "default_parcel": {
+        "packaging_dimension": {
+          "length": 100,
+          "height": 100,
+          "width": 50
+        },
+        "parcel_total_weight": 50,
+        "parcel_value": 60000,
+        "packages": [
+          {
+            "weight": 100,
+            "dimensions": {
+              "length": 100,
+              "width": 50,
+              "height": 100
+            }
+          }
+        ]
+      },
+      "address_payload": {
+        "pickup_address": {
+          "city": "Ikeja",
+          "state": "Lagos",
+          "country": "NG",
+          "zip": ""
+        },
+        "delivery_address": {
+          "city": "Wuse",
+          "state": "Abuja",
+          "country": "NG",
+          "zip": ""
+        }
+      },
+      "score": 0,
+      "avgRating": 0,
+      "insurance_fee": 0,
+      "insurance_currency": "NGN",
+      "insurance_default_fee": 0,
+      "insurance_default_currency": "NGN",
+      "cod_processing_fee": 0
+    },
+    "parcel": "PC-FM118LK0297DQ9B0",
+    "parcels": [],
+    "pickup_address": "AD-NOW5WMI7NJJ3WJL2",
+    "pickup_date": "2025-07-05T18:26:57.778Z",
+    "pickup_eta": 1440,
+    "pickup_time": "Within 24 Hours",
+    "rate_id": "RT-X7EBRL559G3UY0I8",
+    "source": "api",
+    "type": "standard",
+    "used": false,
+    "user": "USER-VBUNINZ77RHSVUJ2",
+    "_id": "68681cf1ed6770b2c89cf7cb",
+    "__v": 0,
+    "created_at": "2025-07-04T18:26:57.930Z",
+    "updated_at": "2025-07-04T18:26:57.930Z",
+    "id": "68681cf1ed6770b2c89cf7cb"
+  },
+  {
+    "amount": 387897.08,
+    "cargo_type": "",
+    "carrier_logo": "https://ucarecdn.com/c2d4dcb2-1483-47a5-ab14-447a990f5827/60dc7947195c0078fabff349_1200pxUnited_Parcel_Service_logo_2014svg.png",
+    "carrier_name": "United Parcel Services",
+    "carrier_rate_description": "Express Saver",
+    "carrier_reference": "CA-19429970231",
+    "carrier_slug": "ups",
+    "currency": "NGN",
+    "domain": "",
+    "default_amount": 387897.08,
+    "default_currency": "NGN",
+    "delivery_address": "AD-N1FABTCG6OAIFHFV",
+    "delivery_date": "2025-07-10T18:26:57.786Z",
+    "delivery_eta": 8640,
+    "delivery_time": "Within 6 days",
+    "dropoff_available": true,
+    "dropoff_only": false,
+    "dropoff_required": false,
+    "wordpress_used": false,
+    "insurance_coverage": 0,
+    "includes_duties": false,
+    "insurance_fee": 0,
+    "includes_insurance": false,
+    "metadata": {
+      "rate_payload": {
+        "rate_amount": 115440,
+        "Service": {
+          "Code": "65",
+          "Description": "Express Saver"
+        },
+        "BillingWeight": {
+          "UnitOfMeasurement": {
+            "Code": "KGS"
+          },
+          "Weight": "100"
+        },
+        "TotalCharges": {
+          "CurrencyCode": "NGN",
+          "MonetaryValue": 60000
+        }
+      },
+      "default_parcel": {
+        "packaging_dimension": {
+          "length": 100,
+          "height": 100,
+          "width": 50
+        },
+        "parcel_total_weight": 50,
+        "parcel_value": 60000,
+        "packages": [
+          {
+            "weight": 100,
+            "dimensions": {
+              "length": 100,
+              "width": 50,
+              "height": 100
+            }
+          }
+        ]
+      },
+      "address_payload": {
+        "pickup_address": {
+          "city": "Ikeja",
+          "state": "Lagos",
+          "country": "NG",
+          "zip": ""
+        },
+        "delivery_address": {
+          "city": "Wuse",
+          "state": "Abuja",
+          "country": "NG",
+          "zip": ""
+        }
+      },
+      "score": 3,
+      "_id": null,
+      "avgActualTurnaroundTime": 0,
+      "avgActualPickupTime": 48,
+      "avgRating": 0,
+      "insurance_fee": 0,
+      "insurance_currency": "NGN",
+      "insurance_default_fee": 0,
+      "insurance_default_currency": "NGN",
+      "cod_processing_fee": 0
+    },
+    "parcel": "PC-FM118LK0297DQ9B0",
+    "parcels": [],
+    "pickup_address": "AD-NOW5WMI7NJJ3WJL2",
+    "pickup_date": "2025-07-07T18:26:57.786Z",
+    "pickup_eta": 4320,
+    "pickup_time": "Within 72 Hours",
+    "rate_id": "RT-TNN0QEDPU7YVT56B",
+    "source": "api",
+    "type": "standard",
+    "used": false,
+    "user": "USER-VBUNINZ77RHSVUJ2",
+    "_id": "68681cf1ed6770b2c89cf7cc",
+    "__v": 0,
+    "created_at": "2025-07-04T18:26:57.930Z",
+    "updated_at": "2025-07-04T18:26:57.930Z",
+    "id": "68681cf1ed6770b2c89cf7cc"
+  },
+  {
+    "amount": 925193,
+    "cargo_type": "",
+    "carrier_logo": "https://terminal-static-file.s3.us-east-1.amazonaws.com/images/DHL.svg",
+    "carrier_name": "DHL Express",
+    "carrier_rate_description": "DOMESTIC",
+    "carrier_reference": "CA-81957188177",
+    "carrier_slug": "dhl-ng",
+    "currency": "NGN",
+    "domain": "",
+    "default_amount": 925193,
+    "default_currency": "NGN",
+    "delivery_address": "AD-N1FABTCG6OAIFHFV",
+    "delivery_date": "2025-07-09T18:26:57.776Z",
+    "delivery_eta": 7200,
+    "delivery_time": "Within 5 days",
+    "dropoff_available": true,
+    "dropoff_only": false,
+    "dropoff_required": false,
+    "wordpress_used": false,
+    "insurance_coverage": 0,
+    "includes_duties": false,
+    "insurance_fee": 0,
+    "includes_insurance": false,
+    "metadata": {
+      "localProductCode": "N",
+      "productCode": "N",
+      "default_parcel": {
+        "packaging_dimension": {
+          "length": 100,
+          "height": 100,
+          "width": 50
+        },
+        "parcel_total_weight": 50,
+        "parcel_value": 60000,
+        "packages": [
+          {
+            "weight": 100,
+            "dimensions": {
+              "length": 100,
+              "width": 50,
+              "height": 100
+            }
+          }
+        ]
+      },
+      "address_payload": {
+        "pickup_address": {
+          "city": "Ikeja",
+          "state": "Lagos",
+          "country": "NG",
+          "zip": ""
+        },
+        "delivery_address": {
+          "city": "Wuse",
+          "state": "Abuja",
+          "country": "NG",
+          "zip": ""
+        }
+      },
+      "is_manual": true,
+      "markup_version": 14,
+      "score": 10,
+      "_id": null,
+      "avgActualTurnaroundTime": 0,
+      "avgActualPickupTime": 60.76923076923077,
+      "avgRating": 0,
+      "insurance_fee": 0,
+      "insurance_currency": "NGN",
+      "insurance_default_fee": 0,
+      "insurance_default_currency": "NGN",
+      "cod_processing_fee": 0,
+      "recommended": true
+    },
+    "parcel": "PC-FM118LK0297DQ9B0",
+    "parcels": [],
+    "pickup_address": "AD-NOW5WMI7NJJ3WJL2",
+    "pickup_date": "2025-07-07T18:26:57.776Z",
+    "pickup_eta": 4320,
+    "pickup_time": "Within 72 Hours",
+    "rate_id": "RT-QEXM9XF23RXIS49E",
+    "source": "api",
+    "type": "standard",
+    "used": false,
+    "user": "USER-VBUNINZ77RHSVUJ2",
+    "_id": "68681cf1ed6770b2c89cf7cd",
+    "__v": 0,
+    "created_at": "2025-07-04T18:26:57.930Z",
+    "updated_at": "2025-07-04T18:26:57.930Z",
+    "id": "68681cf1ed6770b2c89cf7cd"
+  }
+]

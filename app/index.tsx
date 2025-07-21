@@ -11,11 +11,18 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import { useAuth } from "./lib/auth";
+import { cssInterop } from "nativewind";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 const CourierImage = require("@/assets/images/icon.png");
 
 SplashScreen.preventAutoHideAsync();
 
+export const IonIcons = cssInterop(Ionicons, {
+  className: {
+    target: "style",
+  },
+});
 export default function Index() {
   const router = useRouter();
   const { width } = Dimensions.get("window");

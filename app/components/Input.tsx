@@ -36,13 +36,20 @@ export default function Input({
 }: InputProps) {
   return (
     <View className={`${className} mt-6`}>
-      {label && <Text className="mb-2">{label}</Text>}
+      {label && (
+        <Text className="mb-2 text-subtext-light dark:text-subtext-dark">
+          {label}
+        </Text>
+      )}
       <View
-        className={`p-1.5 border-gray-300 bg-white  ${!viewClassName ? "border-[1px]" : viewClassName} rounded-xl flex flex-row items-center`}
+        className={`p-1 border-input-light dark:border-input-dark bg-surface-light dark:bg-surface-dark  ${
+          !viewClassName ? "border-[1px]" : viewClassName
+        } rounded-xl flex flex-row items-center`}
       >
         <IonIcons size={24} name={iconName} />
+
         <TextInput
-          className="mx-2 h-full w-full text-black placeholder:text-black"
+          className="mx-2 h-full w-full text-subtext-light dark:text-subtext-dark placeholder:text-subtext-light placeholder:dark:text-subtext-dark"
           placeholder={placeholder}
           secureTextEntry={secureTextEntry}
           keyboardType={keyboardType}
